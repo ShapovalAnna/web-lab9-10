@@ -9,8 +9,7 @@ export default function TrainCard({ train }) {
             </p>
 
             <p>
-                <strong>Дата відправлення:</strong>{" "}
-                {train.departureDate}
+                <strong>Дата:</strong> {train.departureDate}
             </p>
 
             <p>
