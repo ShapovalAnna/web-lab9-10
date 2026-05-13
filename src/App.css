@@ -215,7 +215,14 @@ h1 {
         padding: 10px;
         font-size: 14px;
     }
+    .buttons {
+        width: 100%;
+    }
 
+    .search-btn,
+    .clear-btn {
+        flex: 1;
+    }
     .card {
         padding: 20px;
     }
@@ -240,4 +247,48 @@ h1 {
     .time-block strong {
         font-size: 18px;
     }
+}
+
+
+.buttons {
+    display: flex;
+
+    gap: 12px;
+
+    align-items: end;
+}
+
+.search-btn,
+.clear-btn {
+    border: none;
+
+    padding: 14px 22px;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.search-btn {
+    background: #243c96;
+    color: white;
+}
+
+.search-btn:hover {
+    background: #1b2f77;
+}
+
+.clear-btn {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.clear-btn:hover {
+    background: #d1d5db;
 }
