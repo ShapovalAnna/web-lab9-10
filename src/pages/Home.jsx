@@ -3,26 +3,86 @@ import { trains } from "../data/trains";
 import TrainList from "../components/TrainList";
 
 export default function Home() {
-    const [search, setSearch] = useState("");
 
-    const filteredTrains = trains.filter((train) =>
-        train.number.toLowerCase().includes(search.toLowerCase()) ||
-        train.from.toLowerCase().includes(search.toLowerCase()) ||
-        train.to.toLowerCase().includes(search.toLowerCase())
-    );
+    const [fromCity, setFromCity] = useState("");
+    const [toCity, setToCity] = useState("");
+    const [date, setDate] = useState("");
+
+    const filteredTrains = trains.filter((train) => {
+
+        const matchesFrom =
+            fromCity === "" ||
+            train.from.toLowerCase().includes(fromCity.toLowerCase());
+
+        const matchesTo =
+            toCity === "" ||
+            train.to.toLowerCase().includes(toCity.toLowerCase());
+
+        const matchesDate =
+            date === "" || train.departureDate === date;
+
+        return matchesFrom && matchesTo && matchesDate;
+    });
 
     return (
         <div className="container">
+
             <h1>Квитки на потяг</h1>
 
-            <input
-                type="text"
-                placeholder="Пошук за номером або містом..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className="filter-box">
+
+                <div className="filter-group">
+                    <label>Звідки</label>
+
+                    <input
+                        list="fromCities"
+                        placeholder="Введіть місто"
+                        value={fromCity}
+                        onChange={(e) => setFromCity(e.target.value)}
+                    />
+
+                    <datalist id="fromCities">
+                        <option value="Львів" />
+                        <option value="Київ" />
+                        <option value="Івано-Франківськ" />
+                        <option value="Одеса" />
+                        <option value="Дніпро" />
+                    </datalist>
+                </div>
+
+                <div className="filter-group">
+                    <label>Куди</label>
+
+                    <input
+                        list="toCities"
+                        placeholder="Введіть місто"
+                        value={toCity}
+                        onChange={(e) => setToCity(e.target.value)}
+                    />
+
+                    <datalist id="toCities">
+                        <option value="Київ" />
+                        <option value="Одеса" />
+                        <option value="Харків" />
+                        <option value="Ужгород" />
+                        <option value="Дніпро" />
+                    </datalist>
+                </div>
+
+                <div className="filter-group">
+                    <label>Дата</label>
+
+                    <input
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                    />
+                </div>
+
+            </div>
 
             <TrainList trains={filteredTrains} />
+
         </div>
     );
 }
