@@ -2,7 +2,7 @@ import TrainCard from "./TrainCard";
 
 export default function TrainList({ trains }) {
     return (
-        <div className="train-grid">
+        <div className="train-list">
             {trains.map((train) => (
                 <TrainCard
                     key={train.id}

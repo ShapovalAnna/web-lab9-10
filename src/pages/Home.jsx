@@ -76,6 +76,7 @@ export default function Home() {
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
+                        onClick={(e) => e.target.showPicker()}
                     />
                 </div>
 

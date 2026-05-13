@@ -1,26 +1,40 @@
 export default function TrainCard({ train }) {
+
     return (
         <div className="card">
+
             <h2>Потяг {train.number}</h2>
 
-            <p>
-                <strong>Маршрут:</strong>{" "}
-                {train.from} → {train.to}
-            </p>
+            <div className="route-info">
 
-            <p>
-                <strong>Дата:</strong> {train.departureDate}
-            </p>
+                <div className="time-block">
+                    <h3>{train.departureTime}</h3>
 
-            <p>
-                <strong>Час відправлення:</strong>{" "}
-                {train.departureTime}
-            </p>
+                    <p>{train.departureDate}</p>
 
-            <p>
-                <strong>Тривалість поїздки:</strong>{" "}
-                {train.duration}
-            </p>
+                    <strong>{train.from}</strong>
+                </div>
+
+                <div className="duration-block">
+
+                    <div className="line"></div>
+
+                    <span>{train.duration}</span>
+
+                    <div className="line"></div>
+
+                </div>
+
+                <div className="time-block">
+                    <h3>{train.arrivalTime}</h3>
+
+                    <p>{train.arrivalDate}</p>
+
+                    <strong>{train.to}</strong>
+                </div>
+
+            </div>
+
         </div>
     );
 }
