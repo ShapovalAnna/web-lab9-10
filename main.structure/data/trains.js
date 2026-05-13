@@ -4,7 +4,8 @@ export const trains = [
         number: "091К",
         from: "Львів",
         to: "Київ",
-        departure: "08:30",
+        departureDate: "15.05.2026",
+        departureTime: "08:30",
         duration: "5 год 20 хв"
     },
     {
@@ -12,7 +13,8 @@ export const trains = [
         number: "715Л",
         from: "Львів",
         to: "Одеса",
-        departure: "12:10",
+        departureDate: "16.05.2026",
+        departureTime: "12:10",
         duration: "10 год 15 хв"
     },
     {
@@ -20,7 +22,8 @@ export const trains = [
         number: "041П",
         from: "Київ",
         to: "Дніпро",
-        departure: "18:45",
+        departureDate: "17.05.2026",
+        departureTime: "18:45",
         duration: "7 год"
     },
     {
@@ -28,7 +31,8 @@ export const trains = [
         number: "029К",
         from: "Київ",
         to: "Ужгород",
-        departure: "21:00",
+        departureDate: "18.05.2026",
+        departureTime: "21:00",
         duration: "12 год 30 хв"
     },
     {
@@ -36,7 +40,8 @@ export const trains = [
         number: "145О",
         from: "Івано-Франківськ",
         to: "Харків",
-        departure: "16:20",
+        departureDate: "19.05.2026",
+        departureTime: "16:20",
         duration: "14 год 10 хв"
     }
 ];
