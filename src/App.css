@@ -215,14 +215,7 @@ h1 {
         padding: 10px;
         font-size: 14px;
     }
-    .buttons {
-        width: 100%;
-    }
 
-    .search-btn,
-    .clear-btn {
-        flex: 1;
-    }
     .card {
         padding: 20px;
     }
@@ -233,19 +226,39 @@ h1 {
 
     .route-info {
         flex-direction: column;
-        align-items: flex-start;
-    }
 
-    .duration-block {
-        width: 100%;
+        align-items: stretch;
+
+        gap: 25px;
     }
 
     .time-block h3 {
-        font-size: 36px;
+        font-size: 44px;
     }
 
     .time-block strong {
         font-size: 18px;
+    }
+
+    .duration-block {
+        width: 100%;
+
+        justify-content: center;
+
+        margin-top: 0;
+    }
+
+    .line {
+        width: 80px;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .search-btn,
+    .clear-btn {
+        flex: 1;
     }
 }
 
