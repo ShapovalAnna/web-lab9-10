@@ -7,30 +7,32 @@ export default function WagonSelector({
     return (
 
         <div className="wagon-selector">
-
-            <h2>Оберіть вагон</h2>
-
-            <div className="wagon-list">
-
-                {wagons.map((wagon) => (
-
+            {wagons.map((wagon) => (
+                <div
+                    key={wagon.id}
+                    className="wagon-block"
+                >
+                    <h3>
+                        Вагон {wagon.id}
+                    </h3>
                     <button
-                        key={wagon}
                         className={
-                            selectedWagon === wagon
+                            selectedWagon === wagon.id
                                 ? "wagon-btn active"
                                 : "wagon-btn"
                         }
                         onClick={() =>
-                            setSelectedWagon(wagon)
+                            setSelectedWagon(
+                                wagon.id
+                            )
                         }
                     >
-                        Вагон {wagon}
+                        Обрати
                     </button>
 
-                ))}
+                </div>
 
-            </div>
+            ))}
 
         </div>
 
