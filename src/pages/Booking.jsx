@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+
+import { trains } from "../data/trains";
 
 import WagonSelector from "../components/WagonSelector";
 import SeatMap from "../components/SeatMap";
@@ -7,6 +10,15 @@ import BookingForm from "../components/BookingForm";
 import { saveBooking } from "../services/BookingService";
 
 export default function Booking() {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const { id } = useParams();
+
+    const train = trains.find(
+        (train) => train.id === Number(id)
+    );
 
     const wagons = [1, 2, 3, 4];
 
@@ -75,8 +87,13 @@ export default function Booking() {
         }
 
         const booking = {
+
+            trainId: train.id,
+
             wagon: selectedWagon,
+
             seats: selectedSeats,
+
             name,
             phone,
             email
@@ -87,7 +104,6 @@ export default function Booking() {
         alert("Бронювання успішне");
 
         setSelectedSeats([]);
-
         setName("");
         setPhone("");
         setEmail("");
@@ -97,21 +113,65 @@ export default function Booking() {
 
         <div className="booking-page">
 
+            <button
+                className="back-btn"
+                onClick={() =>
+                    navigate(
+                        "/",
+                        {
+                            state: {
+                                fromCity:
+                                location.state?.fromCity,
+
+                                toCity:
+                                location.state?.toCity,
+
+                                date:
+                                location.state?.date,
+
+                                filteredTrains:
+                                location.state?.filteredTrains
+                            }
+                        }
+                    )
+                }
+            >
+                ← Назад
+            </button>
+
             <h1>Бронювання квитків</h1>
+
+            <div className="selected-train">
+
+                <h2>
+                    Потяг {train.number}
+                </h2>
+
+                <p>
+                    {train.from} → {train.to}
+                </p>
+
+                <p>
+                    {train.departureDate}
+                </p>
+
+                <p>
+                    {train.departureTime}
+                    {" - "}
+                    {train.arrivalTime}
+                </p>
+
+            </div>
 
             <WagonSelector
                 wagons={wagons}
                 selectedWagon={selectedWagon}
-                setSelectedWagon={
-                    setSelectedWagon
-                }
+                setSelectedWagon={setSelectedWagon}
             />
 
             <SeatMap
                 seats={seats}
-                selectedSeats={
-                    selectedSeats
-                }
+                selectedSeats={selectedSeats}
                 toggleSeat={toggleSeat}
             />
 
@@ -122,9 +182,7 @@ export default function Booking() {
                 setPhone={setPhone}
                 email={email}
                 setEmail={setEmail}
-                handleBooking={
-                    handleBooking
-                }
+                handleBooking={handleBooking}
             />
 
         </div>

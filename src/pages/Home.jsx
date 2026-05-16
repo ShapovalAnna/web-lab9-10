@@ -1,42 +1,64 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { trains } from "../data/trains";
 import TrainList from "../components/TrainList";
 
 export default function Home() {
 
-    const [fromCity, setFromCity] = useState("");
-    const [toCity, setToCity] = useState("");
-    const [date, setDate] = useState("");
+    const location = useLocation();
+
+    const [fromCity, setFromCity] =
+        useState(
+            location.state?.fromCity || ""
+        );
+
+    const [toCity, setToCity] =
+        useState(
+            location.state?.toCity || ""
+        );
+
+    const [date, setDate] =
+        useState(
+            location.state?.date || ""
+        );
 
     const [filteredTrains, setFilteredTrains] =
-        useState([]);
+        useState(
+            location.state?.filteredTrains || []
+        );
 
     const handleSearch = () => {
 
-        const filtered = trains.filter((train) => {
+        const filtered = trains.filter(
+            (train) => {
 
-            const matchesFrom =
-                fromCity === "" ||
-                train.from
-                    .toLowerCase()
-                    .includes(fromCity.toLowerCase());
+                const matchesFrom =
+                    fromCity === "" ||
+                    train.from
+                        .toLowerCase()
+                        .includes(
+                            fromCity.toLowerCase()
+                        );
 
-            const matchesTo =
-                toCity === "" ||
-                train.to
-                    .toLowerCase()
-                    .includes(toCity.toLowerCase());
+                const matchesTo =
+                    toCity === "" ||
+                    train.to
+                        .toLowerCase()
+                        .includes(
+                            toCity.toLowerCase()
+                        );
 
-            const matchesDate =
-                date === "" ||
-                train.departureDate === date;
+                const matchesDate =
+                    date === "" ||
+                    train.departureDate === date;
 
-            return (
-                matchesFrom &&
-                matchesTo &&
-                matchesDate
-            );
-        });
+                return (
+                    matchesFrom &&
+                    matchesTo &&
+                    matchesDate
+                );
+            }
+        );
 
         setFilteredTrains(filtered);
     };
@@ -51,6 +73,7 @@ export default function Home() {
     };
 
     return (
+
         <div className="container">
 
             <h1>Квитки на потяг</h1>
@@ -59,61 +82,77 @@ export default function Home() {
 
                 <div className="filter-group">
 
-                    <label>Звідки</label>
+                    <label>
+                        Звідки
+                    </label>
 
                     <input
                         list="fromCities"
                         placeholder="Введіть місто"
                         value={fromCity}
                         onChange={(e) =>
-                            setFromCity(e.target.value)
+                            setFromCity(
+                                e.target.value
+                            )
                         }
                     />
 
                     <datalist id="fromCities">
+
                         <option value="Львів" />
                         <option value="Київ" />
                         <option value="Одеса" />
                         <option value="Харків" />
                         <option value="Дніпро" />
                         <option value="Ужгород" />
+
                     </datalist>
 
                 </div>
 
                 <div className="filter-group">
 
-                    <label>Куди</label>
+                    <label>
+                        Куди
+                    </label>
 
                     <input
                         list="toCities"
                         placeholder="Введіть місто"
                         value={toCity}
                         onChange={(e) =>
-                            setToCity(e.target.value)
+                            setToCity(
+                                e.target.value
+                            )
                         }
                     />
 
                     <datalist id="toCities">
+
                         <option value="Львів" />
                         <option value="Київ" />
                         <option value="Одеса" />
                         <option value="Харків" />
                         <option value="Дніпро" />
                         <option value="Ужгород" />
+
                     </datalist>
 
                 </div>
 
                 <div className="filter-group">
 
-                    <label>Дата</label>
+                    <label>
+                        Дата
+                    </label>
 
                     <input
                         type="date"
                         value={date}
                         onChange={(e) =>
-                            setDate(e.target.value)
+                            setDate(
+                                e.target.value
+                            )
                         }
                         onClick={(e) =>
                             e.target.showPicker()
@@ -143,9 +182,17 @@ export default function Home() {
             </div>
 
             {filteredTrains.length > 0 && (
-                <TrainList trains={filteredTrains} />
+
+                <TrainList
+                    trains={filteredTrains}
+                    fromCity={fromCity}
+                    toCity={toCity}
+                    date={date}
+                />
+
             )}
 
         </div>
+
     );
 }
