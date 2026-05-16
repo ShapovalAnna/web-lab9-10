@@ -1,26 +1,45 @@
 import { useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-
 import { trains } from "../data/trains";
-
 import WagonSelector from "../components/WagonSelector";
 import SeatMap from "../components/SeatMap";
 import BookingForm from "../components/BookingForm";
-
 import { saveBooking } from "../services/BookingService";
-
 export default function Booking() {
 
     const navigate = useNavigate();
     const location = useLocation();
-
     const { id } = useParams();
-
     const train = trains.find(
         (train) => train.id === Number(id)
     );
 
-    const wagons = [1, 2, 3, 4];
+    const wagonTypes = {
+        platzkart: [
+            {
+                id: 1,
+                seats: 30,
+                price: 456
+            },
+            {
+                id: 2,
+                seats: 30,
+                price: 456
+            }
+        ],
+        coupe: [
+            {
+                id: 3,
+                seats: 20,
+                price: 985
+            },
+            {
+                id: 4,
+                seats: 20,
+                price: 985
+            }
+        ]
+    };
 
     const [selectedWagon, setSelectedWagon] =
         useState(1);
@@ -46,19 +65,15 @@ export default function Booking() {
     );
 
     const toggleSeat = (seatId) => {
-
         if (
             selectedSeats.includes(seatId)
         ) {
-
             setSelectedSeats(
                 selectedSeats.filter(
                     (id) => id !== seatId
                 )
             );
-
         } else {
-
             setSelectedSeats([
                 ...selectedSeats,
                 seatId
@@ -67,42 +82,32 @@ export default function Booking() {
     };
 
     const handleBooking = () => {
-
         if (
             !name ||
             !phone ||
             !email
         ) {
-
             alert("Заповніть всі поля");
             return;
         }
-
         if (
             selectedSeats.length === 0
         ) {
-
             alert("Оберіть місця");
             return;
         }
 
         const booking = {
-
             trainId: train.id,
-
             wagon: selectedWagon,
-
             seats: selectedSeats,
-
             name,
             phone,
             email
         };
 
         saveBooking(booking);
-
         alert("Бронювання успішне");
-
         setSelectedSeats([]);
         setName("");
         setPhone("");
@@ -110,9 +115,7 @@ export default function Booking() {
     };
 
     return (
-
         <div className="booking-page">
-
             <button
                 className="back-btn"
                 onClick={() =>
@@ -164,7 +167,7 @@ export default function Booking() {
             </div>
 
             <WagonSelector
-                wagons={wagons}
+                wagons={wagonTypes}
                 selectedWagon={selectedWagon}
                 setSelectedWagon={setSelectedWagon}
             />
