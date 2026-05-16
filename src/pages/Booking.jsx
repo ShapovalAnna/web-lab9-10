@@ -432,11 +432,8 @@ export default function Booking() {
                         setEmail={setEmail}
                         handleBooking={handleBooking}
                     />
-
                 </div>
-
             </div>
-
         </div>
 
     );
