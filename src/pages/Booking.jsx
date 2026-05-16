@@ -4,7 +4,8 @@ import { trains } from "../data/trains";
 import WagonSelector from "../components/WagonSelector";
 import SeatMap from "../components/SeatMap";
 import BookingForm from "../components/BookingForm";
-import { saveBooking } from "../services/BookingService";
+import { saveBooking, getBookings } from "../services/BookingService";
+
 export default function Booking() {
 
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function Booking() {
                 price: 456
             }
         ],
+
         coupe: [
             {
                 id: 3,
@@ -40,6 +42,9 @@ export default function Booking() {
             }
         ]
     };
+
+    const [wagonType, setWagonType] =
+        useState("platzkart");
 
     const [selectedWagon, setSelectedWagon] =
         useState(1);
@@ -56,24 +61,124 @@ export default function Booking() {
     const [email, setEmail] =
         useState("");
 
-    const seats = Array.from(
-        { length: 36 },
-        (_, index) => ({
-            id: index + 1,
-            booked: false
-        })
-    );
+    const currentWagons =
+        wagonTypes[wagonType];
+
+
+    const bookings = getBookings();
+
+    const wagonSeats = {
+
+        1: Array.from(
+            { length: 30 },
+            (_, index) => ({
+                id: index + 1,
+
+                booked:
+                    bookings.some(
+                        (booking) =>
+
+                            booking.trainId ===
+                            train.id &&
+
+                            booking.wagon === 1 &&
+
+                            booking.seats.includes(
+                                index + 1
+                            )
+                    )
+            })
+        ),
+
+        2: Array.from(
+            { length: 30 },
+            (_, index) => ({
+                id: index + 1,
+
+                booked:
+                    bookings.some(
+                        (booking) =>
+
+                            booking.trainId ===
+                            train.id &&
+
+                            booking.wagon === 2 &&
+
+                            booking.seats.includes(
+                                index + 1
+                            )
+                    )
+            })
+        ),
+
+        3: Array.from(
+            { length: 20 },
+            (_, index) => ({
+                id: index + 1,
+
+                booked:
+                    bookings.some(
+                        (booking) =>
+
+                            booking.trainId ===
+                            train.id &&
+
+                            booking.wagon === 3 &&
+
+                            booking.seats.includes(
+                                index + 1
+                            )
+                    )
+            })
+        ),
+
+        4: Array.from(
+            { length: 20 },
+            (_, index) => ({
+                id: index + 1,
+
+                booked:
+                    bookings.some(
+                        (booking) =>
+
+                            booking.trainId ===
+                            train.id &&
+
+                            booking.wagon === 4 &&
+
+                            booking.seats.includes(
+                                index + 1
+                            )
+                    )
+            })
+        )
+    };
+
+    const seats =
+        wagonSeats[selectedWagon];
 
     const toggleSeat = (seatId) => {
+
+        const seat = seats.find(
+            (seat) => seat.id === seatId
+        );
+
+        if (seat.booked) {
+            return;
+        }
+
         if (
             selectedSeats.includes(seatId)
         ) {
+
             setSelectedSeats(
                 selectedSeats.filter(
                     (id) => id !== seatId
                 )
             );
+
         } else {
+
             setSelectedSeats([
                 ...selectedSeats,
                 seatId
@@ -82,47 +187,51 @@ export default function Booking() {
     };
 
     const handleBooking = () => {
+
         if (
             !name ||
             !phone ||
             !email
         ) {
+
             alert("Заповніть всі поля");
             return;
         }
+
         if (
             selectedSeats.length === 0
         ) {
+
             alert("Оберіть місця");
             return;
         }
 
         const booking = {
+
             trainId: train.id,
+
             wagon: selectedWagon,
+
             seats: selectedSeats,
+
             name,
             phone,
             email
         };
 
         saveBooking(booking);
-        alert("Бронювання успішне");
-        setSelectedSeats([]);
-        setName("");
-        setPhone("");
-        setEmail("");
-    };
 
+        alert("Бронювання успішне");
+
+        window.location.reload();
+    };
     return (
         <div className="booking-page">
             <button
                 className="back-btn"
                 onClick={() =>
-                    navigate(
-                        "/",
-                        {
-                            state: {
+                    navigate("/", {
+                        state: {
                                 fromCity:
                                 location.state?.fromCity,
 
@@ -143,20 +252,11 @@ export default function Booking() {
             </button>
 
             <h1>Бронювання квитків</h1>
-
             <div className="selected-train">
+                <h2>Потяг {train.number}</h2>
 
-                <h2>
-                    Потяг {train.number}
-                </h2>
-
-                <p>
-                    {train.from} → {train.to}
-                </p>
-
-                <p>
-                    {train.departureDate}
-                </p>
+                <p>{train.from} → {train.to}</p>
+                <p>{train.departureDate}</p>
 
                 <p>
                     {train.departureTime}
@@ -165,9 +265,42 @@ export default function Booking() {
                 </p>
 
             </div>
+            <div className="wagon-types">
+                <button
+                    className={
+                        wagonType === "platzkart"
+                            ? "type-btn active"
+                            : "type-btn"
+                    }
+                    onClick={() => {
 
+                        setWagonType("platzkart");
+                        setSelectedWagon(1);
+                        setSelectedSeats([]);
+                    }}
+                >
+                    Плацкарт
+                </button>
+                <button
+                    className={
+                        wagonType === "coupe"
+                            ? "type-btn active"
+                            : "type-btn"
+                    }
+                    onClick={() => {
+
+                        setWagonType("coupe");
+                        setSelectedWagon(3);
+                        setSelectedSeats([]);
+
+                    }}
+                >
+                    Купе
+                </button>
+
+            </div>
             <WagonSelector
-                wagons={wagonTypes}
+                wagons={currentWagons}
                 selectedWagon={selectedWagon}
                 setSelectedWagon={setSelectedWagon}
             />
@@ -177,6 +310,46 @@ export default function Booking() {
                 selectedSeats={selectedSeats}
                 toggleSeat={toggleSeat}
             />
+            <div className="tickets-info">
+                <h2>Квитки</h2>
+                {selectedSeats.map((seat) => (
+
+                    <div
+                        key={seat}
+                        className="ticket-item"
+                    >
+
+                        <p>
+                            {selectedWagon} вагон,
+                            {seat} місце
+                        </p>
+                        <p>
+                            {
+                                wagonType === "platzkart"
+                                    ? "456 грн"
+                                    : "985 грн"
+                            }
+                        </p>
+
+                    </div>
+
+                ))}
+
+                <h3>
+                    Всього:
+                    {" "}
+                    {
+                        selectedSeats.length *
+                        (
+                            wagonType === "platzkart"
+                                ? 456
+                                : 985
+                        )
+                    }
+                    грн
+                </h3>
+
+            </div>
 
             <BookingForm
                 name={name}
