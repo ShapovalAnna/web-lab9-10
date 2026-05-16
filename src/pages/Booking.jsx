@@ -77,9 +77,7 @@ export default function Booking() {
         const alreadySelected =
             selectedSeats.some(
                 (selectedSeat) =>
-
                     selectedSeat.wagon === wagonId &&
-
                     selectedSeat.seat === seatId
             );
 
@@ -88,10 +86,8 @@ export default function Booking() {
             setSelectedSeats(
                 selectedSeats.filter(
                     (selectedSeat) =>
-
                         !(
                             selectedSeat.wagon === wagonId &&
-
                             selectedSeat.seat === seatId
                         )
                 )
@@ -101,7 +97,6 @@ export default function Booking() {
 
             setSelectedSeats([
                 ...selectedSeats,
-
                 {
                     wagon: wagonId,
                     seat: seatId
@@ -131,11 +126,8 @@ export default function Booking() {
         }
 
         const booking = {
-
             trainId: train.id,
-
             seats: selectedSeats,
-
             name,
             phone,
             email
@@ -155,24 +147,21 @@ export default function Booking() {
             <button
                 className="back-btn"
                 onClick={() =>
-                    navigate(
-                        "/",
-                        {
-                            state: {
-                                fromCity:
-                                location.state?.fromCity,
+                    navigate("/", {
+                        state: {
+                            fromCity:
+                            location.state?.fromCity,
 
-                                toCity:
-                                location.state?.toCity,
+                            toCity:
+                            location.state?.toCity,
 
-                                date:
-                                location.state?.date,
+                            date:
+                            location.state?.date,
 
-                                filteredTrains:
-                                location.state?.filteredTrains
-                            }
+                            filteredTrains:
+                            location.state?.filteredTrains
                         }
-                    )
+                    })
                 }
             >
                 ← Назад
@@ -251,21 +240,15 @@ export default function Booking() {
                             const seats = Array.from(
                                 { length: wagon.seats },
                                 (_, index) => ({
-
                                     id: index + 1,
 
                                     booked:
                                         bookings.some(
                                             (booking) =>
-
-                                                booking.trainId ===
-                                                train.id &&
-
+                                                booking.trainId === train.id &&
                                                 booking.seats.some(
                                                     (seat) =>
-
                                                         seat.wagon === wagon.id &&
-
                                                         seat.seat === index + 1
                                                 )
                                         )
@@ -283,46 +266,251 @@ export default function Booking() {
                                         Вагон {wagon.id}
                                     </h2>
 
-                                    <div className="seats-grid">
+                                    <div className="wagon-seats">
 
-                                        {seats.map((seat) => (
+                                        <div className="wc">
+                                            WC
+                                        </div>
 
-                                            <button
-                                                key={seat.id}
+                                        <div className="main-seats">
 
-                                                className={
+                                            {
 
-                                                    seat.booked
+                                                Array.from(
+                                                    {
+                                                        length: 5
+                                                    },
+                                                    (_, blockIndex) => {
 
-                                                        ? "seat booked"
+                                                        const start =
+                                                            blockIndex * 4;
 
-                                                        : selectedSeats.some(
-                                                            (selectedSeat) =>
+                                                        const blockSeats =
+                                                            seats.slice(
+                                                                start,
+                                                                start + 4
+                                                            );
 
-                                                                selectedSeat.wagon === wagon.id &&
+                                                        return (
 
-                                                                selectedSeat.seat === seat.id
-                                                        )
+                                                            <div
+                                                                key={blockIndex}
+                                                                className="seat-block"
+                                                            >
 
-                                                            ? "seat selected"
+                                                                <div className="seat-column">
 
-                                                            : "seat"
-                                                }
+                                                                    {blockSeats[0] && (
 
-                                                onClick={() =>
-                                                    handleSeatClick(
-                                                        wagon.id,
-                                                        seat.id,
-                                                        seat.booked
-                                                    )
-                                                }
-                                            >
-                                                {seat.id}
-                                            </button>
+                                                                        <button
+                                                                            className={
+                                                                                blockSeats[0].booked
+                                                                                    ? "seat booked"
+                                                                                    : selectedSeats.some(
+                                                                                        (selectedSeat) =>
+                                                                                            selectedSeat.wagon === wagon.id &&
+                                                                                            selectedSeat.seat === blockSeats[0].id
+                                                                                    )
+                                                                                        ? "seat selected"
+                                                                                        : "seat"
+                                                                            }
 
-                                        ))}
+                                                                            onClick={() =>
+                                                                                handleSeatClick(
+                                                                                    wagon.id,
+                                                                                    blockSeats[0].id,
+                                                                                    blockSeats[0].booked
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            {blockSeats[0].id}
+                                                                        </button>
+
+                                                                    )}
+
+                                                                    {blockSeats[1] && (
+
+                                                                        <button
+                                                                            className={
+                                                                                blockSeats[1].booked
+                                                                                    ? "seat booked"
+                                                                                    : selectedSeats.some(
+                                                                                        (selectedSeat) =>
+                                                                                            selectedSeat.wagon === wagon.id &&
+                                                                                            selectedSeat.seat === blockSeats[1].id
+                                                                                    )
+                                                                                        ? "seat selected"
+                                                                                        : "seat"
+                                                                            }
+
+                                                                            onClick={() =>
+                                                                                handleSeatClick(
+                                                                                    wagon.id,
+                                                                                    blockSeats[1].id,
+                                                                                    blockSeats[1].booked
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            {blockSeats[1].id}
+                                                                        </button>
+
+                                                                    )}
+
+                                                                </div>
+
+                                                                <div className="seat-column">
+
+                                                                    {blockSeats[2] && (
+
+                                                                        <button
+                                                                            className={
+                                                                                blockSeats[2].booked
+                                                                                    ? "seat booked"
+                                                                                    : selectedSeats.some(
+                                                                                        (selectedSeat) =>
+                                                                                            selectedSeat.wagon === wagon.id &&
+                                                                                            selectedSeat.seat === blockSeats[2].id
+                                                                                    )
+                                                                                        ? "seat selected"
+                                                                                        : "seat"
+                                                                            }
+
+                                                                            onClick={() =>
+                                                                                handleSeatClick(
+                                                                                    wagon.id,
+                                                                                    blockSeats[2].id,
+                                                                                    blockSeats[2].booked
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            {blockSeats[2].id}
+                                                                        </button>
+
+                                                                    )}
+
+                                                                    {blockSeats[3] && (
+
+                                                                        <button
+                                                                            className={
+                                                                                blockSeats[3].booked
+                                                                                    ? "seat booked"
+                                                                                    : selectedSeats.some(
+                                                                                        (selectedSeat) =>
+                                                                                            selectedSeat.wagon === wagon.id &&
+                                                                                            selectedSeat.seat === blockSeats[3].id
+                                                                                    )
+                                                                                        ? "seat selected"
+                                                                                        : "seat"
+                                                                            }
+
+                                                                            onClick={() =>
+                                                                                handleSeatClick(
+                                                                                    wagon.id,
+                                                                                    blockSeats[3].id,
+                                                                                    blockSeats[3].booked
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            {blockSeats[3].id}
+                                                                        </button>
+
+                                                                    )}
+
+                                                                </div>
+
+                                                                <div className="wagon-divider"></div>
+
+                                                            </div>
+
+                                                        );
+
+                                                    }
+                                                )
+
+                                            }
+
+                                        </div>
+
+                                        <div className="wc">
+                                            WC
+                                        </div>
 
                                     </div>
+
+                                    {
+
+                                        wagon.seats === 30 && (
+
+                                            <div className="side-seats">
+
+                                                {
+
+                                                    Array.from(
+                                                        { length: 5 },
+                                                        (_, index) => {
+
+                                                            const start =
+                                                                20 + index * 2;
+
+                                                            const sideGroup =
+                                                                seats.slice(
+                                                                    start,
+                                                                    start + 2
+                                                                );
+
+                                                            return (
+                                                                <>
+
+                                                                    <div className="side-seat-group">
+
+                                                                        {sideGroup.map((seat) => (
+
+                                                                            <button
+                                                                                key={seat.id}
+
+                                                                                className={
+                                                                                    seat.booked
+                                                                                        ? "seat booked"
+                                                                                        : selectedSeats.some(
+                                                                                            (selectedSeat) =>
+                                                                                                selectedSeat.wagon === wagon.id &&
+                                                                                                selectedSeat.seat === seat.id
+                                                                                        )
+                                                                                            ? "seat selected"
+                                                                                            : "seat"
+                                                                                }
+
+                                                                                onClick={() =>
+                                                                                    handleSeatClick(
+                                                                                        wagon.id,
+                                                                                        seat.id,
+                                                                                        seat.booked
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                {seat.id}
+                                                                            </button>
+
+                                                                        ))}
+
+                                                                    </div>
+
+                                                                    {index !== 4 && (
+                                                                        <div className="side-divider"></div>
+                                                                    )}
+
+                                                                </>
+                                                            );
+
+                                                        }
+                                                    )
+
+                                                }
+
+                                            </div>
+
+                                        )
+                                    }
 
                                 </div>
 
@@ -432,8 +620,11 @@ export default function Booking() {
                         setEmail={setEmail}
                         handleBooking={handleBooking}
                     />
+
                 </div>
+
             </div>
+
         </div>
 
     );

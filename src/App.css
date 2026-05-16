@@ -360,10 +360,14 @@ h1 {
     position: absolute;
     top: 20px;
     left: 20px;
+
     padding: 10px 20px;
+
     border: none;
     border-radius: 10px;
+
     background: #d9d9d9;
+
     cursor: pointer;
 }
 
@@ -374,7 +378,7 @@ h1 {
 
 .booking-layout {
     display: flex;
-    gap: 40px;
+    gap: 30px;
     align-items: flex-start;
 }
 
@@ -383,10 +387,11 @@ h1 {
 }
 
 .booking-right {
-    width: 320px;
-    background: #d9d9d9;
-    padding: 20px;
-    border-radius: 15px;
+    width: 280px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .selected-train {
@@ -401,10 +406,15 @@ h1 {
 
 .type-btn {
     padding: 10px 20px;
+
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
+
     background: #d9d9d9;
+
     cursor: pointer;
+
+    font-size: 16px;
 }
 
 .type-btn.active {
@@ -412,44 +422,76 @@ h1 {
     color: white;
 }
 
-.wagon-selector {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
 .wagon-block {
     background: #d9d9d9;
+    border-radius: 20px;
     padding: 20px;
-    border-radius: 15px;
+    overflow-x: auto;
+    margin-bottom: 20px;
 }
 
-.wagon-btn {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    background: #3157ff;
-    color: white;
-    cursor: pointer;
+.wagon-block h2 {
+    margin-bottom: 20px;
 }
 
-.seats-grid {
-    display: grid;
-    grid-template-columns:
-        repeat(10, 50px);
+.wagon-seats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.main-seats {
+    display: flex;
     gap: 10px;
-    margin-top: 20px;
+}
+
+.seat-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.seat-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.side-seats {
+    margin-top: 18px;
+    margin-left: 143px;
+    display: flex;
+    align-items: center;
+}
+
+.side-seat-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.side-divider {
+    width: 2px;
+    height: 62px;
+    background: #999;
+    margin: 0 10px;
 }
 
 .seat {
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
     border: none;
     border-radius: 10px;
     background: #3157ff;
     color: white;
+    font-size: 18px;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+.seat:hover {
+    transform: scale(1.05);
 }
 
 .seat.selected {
@@ -461,36 +503,64 @@ h1 {
     color: black;
 }
 
+.wagon-divider {
+    width: 2px;
+    height: 85px;
+    background: #999;
+}
+
+.wc {
+    width: 55px;
+    height: 120px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
 .tickets-info {
     background: white;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
+
+    border-radius: 20px;
+
+    padding: 25px;
 }
 
 .ticket-item {
     display: flex;
     justify-content: space-between;
+
     margin: 10px 0;
 }
 
 .booking-form {
+    background: #d9d9d9;
+    border-radius: 20px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
 .booking-form input {
-    padding: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
+    font-size: 18px;
 }
 
 .confirm-btn {
-    padding: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     background: #3157ff;
     color: white;
+    font-size: 20px;
     cursor: pointer;
 }
