@@ -9,7 +9,7 @@ export default function Home() {
     const [date, setDate] = useState("");
 
     const [filteredTrains, setFilteredTrains] =
-        useState(trains);
+        useState([]);
 
     const handleSearch = () => {
 
@@ -47,7 +47,7 @@ export default function Home() {
         setToCity("");
         setDate("");
 
-        setFilteredTrains(trains);
+        setFilteredTrains([]);
     };
 
     return (
@@ -142,7 +142,9 @@ export default function Home() {
 
             </div>
 
-            <TrainList trains={filteredTrains} />
+            {filteredTrains.length > 0 && (
+                <TrainList trains={filteredTrains} />
+            )}
 
         </div>
     );
