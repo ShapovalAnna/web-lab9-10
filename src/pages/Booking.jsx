@@ -26,17 +26,27 @@ export default function Booking() {
                 id: 2,
                 seats: 30,
                 price: 456
+            },
+            {
+                id: 3,
+                seats: 30,
+                price: 456
+            },
+            {
+                id: 4,
+                seats: 30,
+                price: 456
             }
         ],
 
         coupe: [
             {
-                id: 3,
+                id: 5,
                 seats: 20,
                 price: 985
             },
             {
-                id: 4,
+                id: 6,
                 seats: 20,
                 price: 985
             }

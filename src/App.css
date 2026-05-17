@@ -387,11 +387,13 @@ h1 {
 }
 
 .booking-right {
-    width: 280px;
-
+    width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+    position: sticky;
+    top: 10px;
+    height: fit-content;
 }
 
 .selected-train {
@@ -406,14 +408,10 @@ h1 {
 
 .type-btn {
     padding: 10px 20px;
-
     border: none;
     border-radius: 12px;
-
     background: #d9d9d9;
-
     cursor: pointer;
-
     font-size: 16px;
 }
 
@@ -460,7 +458,7 @@ h1 {
 
 .side-seats {
     margin-top: 18px;
-    margin-left: 143px;
+    margin-left: 123px;
     display: flex;
     align-items: center;
 }
