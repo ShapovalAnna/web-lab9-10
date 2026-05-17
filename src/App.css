@@ -507,3 +507,41 @@ h1 { text-align: center; margin-bottom: 30px; }
     .search-btn, .clear-btn { flex: 1; }
     .form-row { flex-direction: column; gap: 8px; }
 }
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-window {
+    width: 420px;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+}
+
+.modal-window h2 {
+    margin-bottom: 20px;
+}
+
+.modal-window p {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.modal-btn {
+    margin-top: 20px;
+    width: 100%;
+    height: 56px;
+    border: none;
+    border-radius: 14px;
+    background: #3558f5;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}

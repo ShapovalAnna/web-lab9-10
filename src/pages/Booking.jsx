@@ -30,7 +30,7 @@ export default function Booking() {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
-
+    const [showModal, setShowModal] = useState(false);
     const currentWagons = wagonTypes[wagonType];
     const bookings = getBookings();
 
@@ -52,8 +52,7 @@ export default function Booking() {
         if (!name || !phone || !email) { alert("Заповніть всі поля"); return; }
         if (selectedSeats.length === 0) { alert("Оберіть місця"); return; }
         saveBooking({ trainId: train.id, seats: selectedSeats, name, phone, email });
-        alert("Бронювання успішне");
-        window.location.reload();
+        setShowModal(true);
     };
 
     const getSeatClass = (seat, wagonId) => {
@@ -234,6 +233,33 @@ export default function Booking() {
                 </div>
 
             </div>
+            {
+                showModal && (
+                    <div className="modal-overlay">
+                        <div className="modal-window">
+                            <h2>Бронювання успішне</h2>
+                            <p>Ви забронювали подорож
+                                на {train.departureDate}</p>
+
+                            <p>Потяг {train.number}</p>
+
+                            <p>{train.from} → {train.to}</p>
+                            <p>Гарної подорожі 🚆</p>
+                            <button
+                                className="modal-btn"
+                                onClick={() => {
+                                    setShowModal(false);
+                                    navigate("/");
+                                }}>
+                                Закрити
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                )
+            }
         </div>
     );
 }
