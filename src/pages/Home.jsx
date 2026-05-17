@@ -109,7 +109,21 @@ export default function Home() {
                     </datalist>
 
                 </div>
+                <button
+                    className="swap-btn"
+                    onClick={() => {
 
+                        const temp =
+                            fromCity;
+
+                        setFromCity(toCity);
+
+                        setToCity(temp);
+
+                    }}
+                >
+                    ⇄
+                </button>
                 <div className="filter-group">
 
                     <label>

@@ -35,6 +35,26 @@ h1 { text-align: center; margin-bottom: 30px; }
 
 .filter-group label { margin-bottom: 8px; font-weight: bold; }
 
+.swap-btn {
+    width: 56px;
+    height: 56px;
+    border: none;
+    border-radius: 50%;
+    background: #3558f5;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.swap-btn:hover {
+    background: #2447e0;
+}
 .filter-group input,
 .filter-group select {
     width: 100%;
